@@ -1,4 +1,4 @@
-use rand::prelude::*;
+use rand::Rng;
 use std::time::Instant;
 
 #[derive(Debug)]
@@ -13,7 +13,7 @@ fn mat_mul(a: &Matrix, b:  &Matrix)-> Matrix {
     for i in 0..a.rows{
         for j in 0..b.cols{
             for k in 0..a.cols{
-                out[i*b.cols + j] += a.data[i*a.cols+k] * b.data[k*b.cols + j]; 
+                out[i*b.cols + j]+= a.data[i*a.cols+k] * b.data[k*b.cols + j];
                 }
             }
         }
@@ -28,7 +28,7 @@ fn main() {
     let rana : Vec<f32> = (0..n*n).map(|_| 2.0*rng.gen::<f32>() - 1.0).collect();
     let ranb : Vec<f32> = (0..n*n).map(|_| 2.0*rng.gen::<f32>() - 1.0).collect();
     let testa = Matrix{data : rana, rows : n, cols: n};
-    let testb = Matrix{data :ranb, rows: n , cols: n};
+    let testb = Matrix{data : ranb, rows: n, cols: n};
     let now = Instant::now();
     let _testc = mat_mul(&testa,&testb);
     let elapsed = now.elapsed();
